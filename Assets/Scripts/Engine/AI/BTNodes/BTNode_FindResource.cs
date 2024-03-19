@@ -21,7 +21,20 @@ namespace Game.Engine
 
         protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
         {
-            throw new NotImplementedException();
+            if (!blackboard.TryGetObject(this.character, out IAtomicObject character))
+                return BTState.FAILURE;
+            
+            if (!blackboard.TryGetObject(resourceService, out ResourceService resourceServiceObject))
+                return BTState.FAILURE;
+            
+            Transform characterTransform = character.Get<Transform>(ObjectAPI.Transform);
+
+            if (!resourceServiceObject.FindClosestResource(characterTransform.position, out IAtomicObject resource))
+                return BTState.FAILURE;
+            
+            blackboard.SetObject(targetResource, resource);
+
+            return BTState.SUCCESS;
         }
     }
 }

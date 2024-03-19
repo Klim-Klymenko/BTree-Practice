@@ -98,7 +98,7 @@ RectTransform:
   - {fileID: 5213825705669557899}
   - {fileID: 7323506582477022932}
   m_Father: {fileID: 2248434285133749092}
-  m_RootOrder: -1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -122,9 +122,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -344,7 +342,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2248434285133749092}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4455923611556452129
 MonoBehaviour:
@@ -358,10 +356,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09c0b93b7484545a4777c934e99a69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVariables: []
+  initialVariables:
+  - rid: 5172533051791507457
+  - rid: 5172533051791507486
+  - rid: 5172533051791507488
+  - rid: 5172533051791507494
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5172533051791507457
+      type: {class: BlackboardAtomicObject, ns: Game.Engine, asm: Engine}
+      data:
+        key: 1
+        value: {fileID: 7260902282966990955}
+    - rid: 5172533051791507486
+      type: {class: BlackboardFloat, ns: AIModule, asm: AI}
+      data:
+        key: 5
+        value: 1
+    - rid: 5172533051791507488
+      type: {class: BlackboardObject, ns: AIModule, asm: AI}
+      data:
+        key: 19
+        value: {fileID: 0}
+    - rid: 5172533051791507494
+      type: {class: BlackboardAtomicObject, ns: Game.Engine, asm: Engine}
+      data:
+        key: 17
+        value: {fileID: 0}
 --- !u!114 &2900965232104599671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,10 +398,125 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackboard: {fileID: 4455923611556452129}
   scriptableMechanics: []
-  plainMechanics: []
+  plainMechanics:
+  - rid: 5172533051791507462
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5172533051791507462
+      type: {class: BehaviourTree, ns: AIModule, asm: AI}
+      data:
+        root:
+          rid: 5172533051791507464
+    - rid: 5172533051791507464
+      type: {class: BTNodeSelector, ns: AIModule, asm: AI}
+      data:
+        name: 
+        nodes:
+        - rid: 5172533051791507465
+        - rid: 5172533051791507468
+    - rid: 5172533051791507465
+      type: {class: BTNodeSequence, ns: AIModule, asm: AI}
+      data:
+        name: Unload Resources (Ambar)
+        nodes:
+        - rid: 5172533051791507475
+        - rid: 5172533051791507476
+        - rid: 5172533051791507477
+    - rid: 5172533051791507468
+      type: {class: BTNodeSelector, ns: AIModule, asm: AI}
+      data:
+        name: Gather Resource
+        nodes:
+        - rid: 5172533051791507469
+        - rid: 5172533051791507491
+    - rid: 5172533051791507469
+      type: {class: BTNodeSequence, ns: AIModule, asm: AI}
+      data:
+        name: Process Resource
+        nodes:
+        - rid: 5172533051791507471
+        - rid: 5172533051791507490
+        - rid: 5172533051791507473
+        - rid: 5172533051791507474
+    - rid: 5172533051791507471
+      type: {class: BTNode_FindResource, ns: Game.Engine, asm: Engine}
+      data:
+        character: 1
+        resourceService: 19
+        targetResource: 18
+    - rid: 5172533051791507473
+      type: {class: BTNode_MoveToTarget, ns: Game.Engine, asm: Engine}
+      data:
+        character: 1
+        target: 18
+        stoppingDistance: 5
+    - rid: 5172533051791507474
+      type: {class: BTNode_ExtractResource, ns: Game.Engine, asm: Engine}
+      data:
+        character: 1
+        resource: 18
+        minDistance: 5
+    - rid: 5172533051791507475
+      type: {class: BTNode_FullBagCondition, ns: Game.Engine, asm: Engine}
+      data:
+        _entity: 1
+    - rid: 5172533051791507476
+      type: {class: BTNode_MoveToTarget, ns: Game.Engine, asm: Engine}
+      data:
+        character: 1
+        target: 17
+        stoppingDistance: 5
+    - rid: 5172533051791507477
+      type: {class: BTNodeSelector, ns: AIModule, asm: AI}
+      data:
+        name: Unload Resources Logic
+        nodes:
+        - rid: 5172533051791507478
+        - rid: 5172533051791507481
+    - rid: 5172533051791507478
+      type: {class: BTNodeSequence, ns: AIModule, asm: AI}
+      data:
+        name: Already Full
+        nodes:
+        - rid: 5172533051791507479
+        - rid: 5172533051791507493
+    - rid: 5172533051791507479
+      type: {class: BTNode_FullBagCondition, ns: Game.Engine, asm: Engine}
+      data:
+        _entity: 17
+    - rid: 5172533051791507481
+      type: {class: BTNodeSequence, ns: AIModule, asm: AI}
+      data:
+        name: Yet not full
+        nodes:
+        - rid: 5172533051791507492
+        - rid: 5172533051791507483
+    - rid: 5172533051791507483
+      type: {class: BTNode_UnloadResources, ns: Game.Engine, asm: Engine}
+      data:
+        character: 1
+        targetStorage: 17
+    - rid: 5172533051791507490
+      type: {class: BTNode_SwitchGameObject, ns: Game.Engine, asm: Engine}
+      data:
+        _gameObject: {fileID: 7227571051131715091}
+        _active: 0
+    - rid: 5172533051791507491
+      type: {class: BTNode_SwitchGameObject, ns: Game.Engine, asm: Engine}
+      data:
+        _gameObject: {fileID: 7227571051131715091}
+        _active: 1
+    - rid: 5172533051791507492
+      type: {class: BTNode_SwitchGameObject, ns: Game.Engine, asm: Engine}
+      data:
+        _gameObject: {fileID: 5310893115516053068}
+        _active: 0
+    - rid: 5172533051791507493
+      type: {class: BTNode_SwitchGameObject, ns: Game.Engine, asm: Engine}
+      data:
+        _gameObject: {fileID: 5310893115516053068}
+        _active: 1
 --- !u!1 &2729591373148564147
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,11 +980,11 @@ Transform:
   - {fileID: 6081689373915883512}
   - {fileID: 2138328503329201739}
   m_Father: {fileID: 2248434285133749092}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3170078563231725475
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -864,8 +1001,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &6454531125677108437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -975,7 +1111,7 @@ Transform:
   - {fileID: 4783631709067173296}
   - {fileID: 7574219461443284527}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7260902282966990955
 MonoBehaviour:
@@ -990,7 +1126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   core:
-    transform: {fileID: 2248434285133749092}
     moveComponent:
       transform: {fileID: 2248434285133749092}
       moveSpeed:
@@ -1004,7 +1139,7 @@ MonoBehaviour:
       lookDirection:
         value: {x: 0, y: 0, z: 0}
     gatherComponent: {}
-    resouceStorage:
+    resourceStorage:
       capacity: 5
       current: 0
     axe: {fileID: 4861496292065626305}
@@ -1373,7 +1508,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 5694267148968943437}
     m_Modifications:
     - target: {fileID: 8125178464805537549, guid: 1db712da2d15343ef974ff61beeba2c9, type: 3}
@@ -1441,12 +1575,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8901855523932151223, guid: 1db712da2d15343ef974ff61beeba2c9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9017079825106395785}
   m_SourcePrefab: {fileID: 100100000, guid: 1db712da2d15343ef974ff61beeba2c9, type: 3}
 --- !u!4 &8634145456884227991 stripped
 Transform:
@@ -1485,7 +1613,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 4783631709067173296}
     m_Modifications:
     - target: {fileID: 7946380673508146245, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
@@ -1498,7 +1625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7946380673508146245, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7946380673508146245, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1585,10 +1712,12 @@ PrefabInstance:
       value: "\u0414\u0435\u0440\u0435\u0432\u044C\u0435\u0432 \u043D\u0435\u0442"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
+--- !u!1 &7227571051131715091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8045708095036744834, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
+  m_PrefabInstance: {fileID: 857202842383702673}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7323506582477022932 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7946380673508146245, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
@@ -1599,12 +1728,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 2248434285133749092}
     m_Modifications:
     - target: {fileID: 8125178464805537549, guid: 1db712da2d15343ef974ff61beeba2c9, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8125178464805537549, guid: 1db712da2d15343ef974ff61beeba2c9, type: 3}
       propertyPath: m_LocalScale.x
@@ -1667,12 +1795,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8901855523932151223, guid: 1db712da2d15343ef974ff61beeba2c9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 646210800195924062}
   m_SourcePrefab: {fileID: 100100000, guid: 1db712da2d15343ef974ff61beeba2c9, type: 3}
 --- !u!114 &4861496292065626305 stripped
 MonoBehaviour:
@@ -1698,7 +1820,6 @@ ParentConstraint:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7086089472929772693}
   m_Enabled: 1
-  serializedVersion: 2
   m_Weight: 1
   m_TranslationAtRest: {x: 0.5502517, y: 0.8595002, z: -0.019052982}
   m_RotationAtRest: {x: 10.722964, y: -8.457838, z: -167.92274}
@@ -1712,7 +1833,7 @@ ParentConstraint:
   m_AffectRotationX: 1
   m_AffectRotationY: 1
   m_AffectRotationZ: 1
-  m_Active: 1
+  m_IsContraintActive: 0
   m_IsLocked: 0
   m_Sources:
   - sourceTransform: {fileID: 5694267148968943437}
@@ -1727,7 +1848,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 4783631709067173296}
     m_Modifications:
     - target: {fileID: 7946380673508146245, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
@@ -1740,7 +1860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7946380673508146245, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7946380673508146245, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1823,12 +1943,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
 --- !u!224 &5213825705669557899 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7946380673508146245, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
+  m_PrefabInstance: {fileID: 2746085008744678094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5310893115516053068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8045708095036744834, guid: f2a4b0a481f1445659acaeb51310e2b4, type: 3}
   m_PrefabInstance: {fileID: 2746085008744678094}
   m_PrefabAsset: {fileID: 0}
